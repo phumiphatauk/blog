@@ -1,0 +1,16 @@
+.vscode
+
+# Log file
+*.log
+
+# Build file
+blog_api
+
+# Image
+image/*
+
+# Database in local
+data-db/*
+
+# Minio in local
+data-minio/*

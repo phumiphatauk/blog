@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS user_role;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS role_permission;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS permission;
+DROP TABLE IF EXISTS permission_group;
