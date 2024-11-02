@@ -1,5 +1,7 @@
 BINARY_NAME=blog_api
 ENVIRONMENT=development
+HTTP_SERVER_ADDRESS=0.0.0.0:9093
+GRPC_SERVER_ADDRESS=0.0.0.0:9090
 REDIS_ADDRESS=localhost:6379
 DB_HOST=localhost
 DB_PORT=5432
@@ -26,6 +28,14 @@ postgres:
 ## postgresdown: Stop PostgreSQL container
 postgresdown:
 	docker compose down postgres
+
+## redis: Start Redis container
+redis:
+	docker compose up redis -d
+
+## redisdown: Stop Redis container
+redisdown:
+	docker compose down redis
 
 ## migrate: Create a new migration file
 migrate:
@@ -60,6 +70,17 @@ migrate_force:
 sqlc:
 	sqlc generate
 
+## proto: Generate code from
+proto:
+	rm -rf pb/*.go
+	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
+    --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+    proto/*.proto
+
+## evans: Run evans for gRPC
+evans:
+	evans --host localhost --port 9090 -r repl
+
 ## build: Build binary
 build:
 	@echo "Building back end..."
@@ -69,7 +90,8 @@ build:
 ## run: builds and runs the application
 run: build
 	@echo "Starting back end..."
-	@env HTTP_SERVER_ADDRESS=127.0.0.1:9093 \
+	@env HTTP_SERVER_ADDRESS=${HTTP_SERVER_ADDRESS} \
+	GRPC_SERVER_ADDRESS=${GRPC_SERVER_ADDRESS} \
 	ENVIRONMENT=${ENVIRONMENT} \
 	REDIS_ADDRESS=${REDIS_ADDRESS} \
 	DB_SOURCE=${DB_URL} \
@@ -102,4 +124,4 @@ stop:
 ## restart: stops and starts the running application
 restart: stop run
 
-.PHONY: postgres postgresdown migrate migrateup migrateup1 migratedown migratedown1 sqlc build run stop restart
+.PHONY: postgres postgresdown redis redisdown migrate migrateup migrateup1 migratedown migratedown1 sqlc proto evans build run stop restart

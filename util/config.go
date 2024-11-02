@@ -54,6 +54,7 @@ func LoadConfig(path string) (config Config, err error) {
 	config.RedisAddress = os.Getenv("REDIS_ADDRESS")
 
 	config.HTTPServerAddress = os.Getenv("HTTP_SERVER_ADDRESS")
+	config.GRPCServerAddress = os.Getenv("GRPC_SERVER_ADDRESS")
 	config.GIN_MODE = os.Getenv("GIN_MODE")
 	config.URL_FRONTEND = os.Getenv("URL_FRONTEND")
 	config.TokenSymmetricKey = os.Getenv("TOKEN_SYMMETRIC_KEY")

@@ -2,16 +2,22 @@ package main
 
 import (
 	"context"
+	"net"
 	"os"
 
 	"blog_api/api"
 	db "blog_api/db/sqlc"
+
+	gapi "blog_api/grpc"
+	"blog_api/pb"
 
 	"blog_api/util"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog"
@@ -45,8 +51,8 @@ func main() {
 	// Create a new store using the connection pool.
 	store := db.NewStore(connPool)
 
-	// Start the Gin server with the given configuration and store.
-	runGinServer(config, store)
+	// Start the gRPC server with the given configuration and store.
+	runGrpcServer(config, store)
 }
 
 func runDBMigration(migrationURL string, dbSource string) {
@@ -60,6 +66,28 @@ func runDBMigration(migrationURL string, dbSource string) {
 	}
 
 	log.Info().Msg("db migrated successfully")
+}
+
+func runGrpcServer(config util.Config, store db.Store) {
+	server, err := gapi.NewServer(config, store)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create server")
+	}
+
+	grpcServer := grpc.NewServer()
+	pb.RegisterBlogServiceServer(grpcServer, server)
+	reflection.Register(grpcServer)
+
+	listener, err := net.Listen("tcp", config.GRPCServerAddress)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create listener")
+	}
+
+	log.Info().Msgf("start gRPC server at %s", listener.Addr().String())
+	err = grpcServer.Serve(listener)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot start gRPC server")
+	}
 }
 
 func runGinServer(config util.Config, store db.Store) {
