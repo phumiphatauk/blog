@@ -1,5 +1,6 @@
 BINARY_NAME=blog_api
 ENVIRONMENT=development
+REDIS_ADDRESS=localhost:6379
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=blog
@@ -70,6 +71,7 @@ run: build
 	@echo "Starting back end..."
 	@env HTTP_SERVER_ADDRESS=127.0.0.1:9093 \
 	ENVIRONMENT=${ENVIRONMENT} \
+	REDIS_ADDRESS=${REDIS_ADDRESS} \
 	DB_SOURCE=${DB_URL} \
 	GIN_MODE=debug \
 	URL_FRONTEND=${URL_FRONTEND} \

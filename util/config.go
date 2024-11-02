@@ -51,6 +51,7 @@ func LoadConfig(path string) (config Config, err error) {
 	config.DBDriver = os.Getenv("DB_DRIVER")
 	config.DBSource = os.Getenv("DB_SOURCE")
 	config.MigrationURL = os.Getenv("MIGRATION_URL")
+	config.RedisAddress = os.Getenv("REDIS_ADDRESS")
 
 	config.HTTPServerAddress = os.Getenv("HTTP_SERVER_ADDRESS")
 	config.GIN_MODE = os.Getenv("GIN_MODE")
