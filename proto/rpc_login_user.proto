@@ -19,4 +19,5 @@ message LoginUserResponse {
     string refresh_token = 4;
     google.protobuf.Timestamp access_token_expires_at = 5;
     google.protobuf.Timestamp refresh_token_expires_at = 6;
+    repeated string permissions = 7;
 }
