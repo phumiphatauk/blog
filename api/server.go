@@ -91,6 +91,9 @@ func (server *Server) setupRouter() {
 	// version
 	routerGroup.GET("/api/version", server.getVersion)
 
+	// Auth
+	routerGroup.POST("/api/login", server.loginUser)
+
 	server.router = router
 }
 
