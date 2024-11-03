@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net"
+	"net/http"
 	"os"
 
 	"blog_api/api"
@@ -16,8 +18,10 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog"
@@ -52,6 +56,7 @@ func main() {
 	store := db.NewStore(connPool)
 
 	// Start the gRPC server with the given configuration and store.
+	go runGatewayServer(config, store)
 	runGrpcServer(config, store)
 }
 
@@ -80,11 +85,49 @@ func runGrpcServer(config util.Config, store db.Store) {
 
 	listener, err := net.Listen("tcp", config.GRPCServerAddress)
 	if err != nil {
-		log.Fatal().Err(err).Msg("cannot create listener")
+		log.Fatal().Err(err).Msg(fmt.Sprintf("cannot create listener: %s", err.Error()))
 	}
 
 	log.Info().Msgf("start gRPC server at %s", listener.Addr().String())
 	err = grpcServer.Serve(listener)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot start gRPC server")
+	}
+}
+
+func runGatewayServer(config util.Config, store db.Store) {
+	server, err := gapi.NewServer(config, store)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create server")
+	}
+
+	jsonOption := runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+		MarshalOptions: protojson.MarshalOptions{
+			UseProtoNames: true,
+		},
+		UnmarshalOptions: protojson.UnmarshalOptions{
+			DiscardUnknown: true,
+		},
+	})
+
+	grpcMux := runtime.NewServeMux(jsonOption)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	err = pb.RegisterBlogServiceHandlerServer(ctx, grpcMux, server)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot register gateway server")
+	}
+
+	mux := http.NewServeMux()
+	mux.Handle("/", grpcMux)
+
+	listener, err := net.Listen("tcp", config.HTTPServerAddress)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create listener")
+	}
+
+	log.Info().Msgf("start HTTP gateway server at %s", listener.Addr().String())
+	err = http.Serve(listener, mux)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot start gRPC server")
 	}
