@@ -52,7 +52,7 @@ func main() {
 	}
 
 	// Run database migrations using the provided migration URL and database source.
-	// runDBMigration(config.MigrationURL, config.DBSource)
+	runDBMigration(config.MigrationURL, config.DBSource)
 
 	// Create a new store using the connection pool.
 	store := db.NewStore(connPool)

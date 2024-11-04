@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy all files from the current directory to the working directory in the container
 COPY . .
 # Build the Go application with optimizations
-RUN go build -ldflags "-s -w" -o main .
+RUN go build -ldflags "-s -w" -o main main.go
 
 # Run stage
 FROM alpine
@@ -24,6 +24,7 @@ RUN adduser --system --uid 1001 golang
 # Copy the built application and environment file from the builder stage
 COPY --from=builder --chown=golang:golanggroup /app/main .
 COPY --chown=golang:golanggroup ./app.env .
+COPY --chown=golang:golanggroup db/migration ./db/migration
 
 # Create a directory for images, set ownership and permissions
 RUN mkdir -p /app/image && \
