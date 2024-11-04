@@ -11,6 +11,7 @@ require (
 	github.com/jordan-wright/email v4.0.1-0.20210109023952-943e75fe5223+incompatible
 	github.com/minio/minio-go/v7 v7.0.80
 	github.com/o1egl/paseto v1.0.0
+	github.com/rakyll/statik v0.1.7
 	github.com/rs/zerolog v1.33.0
 	github.com/spf13/viper v1.19.0
 	golang.org/x/crypto v0.28.0

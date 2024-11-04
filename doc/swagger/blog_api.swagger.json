@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Blog API",
-    "version": "1.0",
+    "version": "1.1",
     "contact": {
       "name": "Phumiphat Aukkarach",
       "url": "https://github.com/phumiphatauk",
@@ -23,6 +23,8 @@
   "paths": {
     "/v1/login_user": {
       "post": {
+        "summary": "Use this API to login user and get access token \u0026 refresh token",
+        "description": "Login User",
         "operationId": "BlogService_LoginUser",
         "responses": {
           "200": {
