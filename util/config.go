@@ -47,26 +47,26 @@ func LoadConfig(path string) (config Config, err error) {
 	}
 
 	err = viper.Unmarshal(&config)
-	config.Environment = os.Getenv("ENVIRONMENT")
-	config.DBDriver = os.Getenv("DB_DRIVER")
-	config.DBSource = os.Getenv("DB_SOURCE")
-	config.MigrationURL = os.Getenv("MIGRATION_URL")
-	config.RedisAddress = os.Getenv("REDIS_ADDRESS")
 
-	config.HTTPServerAddress = os.Getenv("HTTP_SERVER_ADDRESS")
-	config.GRPCServerAddress = os.Getenv("GRPC_SERVER_ADDRESS")
-	config.GIN_MODE = os.Getenv("GIN_MODE")
-	config.URL_FRONTEND = os.Getenv("URL_FRONTEND")
-	config.TokenSymmetricKey = os.Getenv("TOKEN_SYMMETRIC_KEY")
-	config.MINIO_ENDPOINT = os.Getenv("MINIO_ENDPOINT")
-	config.MINIO_ACCESS_KEY_ID = os.Getenv("MINIO_ACCESS_KEY_ID")
-	config.MINIO_SECRET_ACCESS_KEY = os.Getenv("MINIO_SECRET_ACCESS_KEY")
-	config.MINIO_USE_SSL = os.Getenv("MINIO_USE_SSL") == "true"
-	config.MINIO_BUCKET_NAME = os.Getenv("MINIO_BUCKET_NAME")
-	config.MINIO_URL_RESULT = os.Getenv("MINIO_URL_RESULT")
-	config.EmailSenderName = os.Getenv("EMAIL_SENDER_NAME")
-	config.EmailSenderAddress = os.Getenv("EMAIL_SENDER_ADDRESS")
-	config.EmailSenderPassword = os.Getenv("EMAIL_SENDER_PASSWORD")
+	config.Environment = getEnv("ENVIRONMENT", config.Environment)
+	config.DBDriver = getEnv("DB_DRIVER", config.DBDriver)
+	config.DBSource = getEnv("DB_SOURCE", config.DBSource)
+	config.MigrationURL = getEnv("MIGRATION_URL", config.MigrationURL)
+	config.RedisAddress = getEnv("REDIS_ADDRESS", config.RedisAddress)
+	config.HTTPServerAddress = getEnv("HTTP_SERVER_ADDRESS", config.HTTPServerAddress)
+	config.GRPCServerAddress = getEnv("GRPC_SERVER_ADDRESS", config.GRPCServerAddress)
+	config.GIN_MODE = getEnv("GIN_MODE", config.GIN_MODE)
+	config.URL_FRONTEND = getEnv("URL_FRONTEND", config.URL_FRONTEND)
+	config.TokenSymmetricKey = getEnv("TOKEN_SYMMETRIC_KEY", config.TokenSymmetricKey)
+	config.MINIO_ENDPOINT = getEnv("MINIO_ENDPOINT", config.MINIO_ENDPOINT)
+	config.MINIO_ACCESS_KEY_ID = getEnv("MINIO_ACCESS_KEY_ID", config.MINIO_ACCESS_KEY_ID)
+	config.MINIO_SECRET_ACCESS_KEY = getEnv("MINIO_SECRET_ACCESS_KEY", config.MINIO_SECRET_ACCESS_KEY)
+	config.MINIO_USE_SSL = getEnvBool("MINIO_USE_SSL", config.MINIO_USE_SSL)
+	config.MINIO_BUCKET_NAME = getEnv("MINIO_BUCKET_NAME", config.MINIO_BUCKET_NAME)
+	config.MINIO_URL_RESULT = getEnv("MINIO_URL_RESULT", config.MINIO_URL_RESULT)
+	config.EmailSenderName = getEnv("EMAIL_SENDER_NAME", config.EmailSenderName)
+	config.EmailSenderAddress = getEnv("EMAIL_SENDER_ADDRESS", config.EmailSenderAddress)
+	config.EmailSenderPassword = getEnv("EMAIL_SENDER_PASSWORD", config.EmailSenderPassword)
 
 	// accessTokenDuration, _ := strconv.Atoi(os.Getenv("ACCESS_TOKEN_DURATION"))
 	// refreshTokenDuration, _ := strconv.Atoi(os.Getenv("REFRESH_TOKEN_DURATION"))
@@ -74,4 +74,18 @@ func LoadConfig(path string) (config Config, err error) {
 	// config.AccessTokenDuration = time.Duration(accessTokenDuration)
 	// config.RefreshTokenDuration = time.Duration(refreshTokenDuration)
 	return
+}
+
+func getEnv(key, defaultValue string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return defaultValue
+}
+
+func getEnvBool(key string, defaultValue bool) bool {
+	if value := os.Getenv(key); value != "" {
+		return value == "true"
+	}
+	return defaultValue
 }

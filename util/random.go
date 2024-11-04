@@ -45,3 +45,8 @@ func RandomMoney() int64 {
 func RandomEmail() string {
 	return fmt.Sprintf("%s@email.com", RandomString(6))
 }
+
+// RandomPhone 10 digit
+func RandomPhone() string {
+	return fmt.Sprintf("0%d", RandomInt(100000000, 999999999))
+}

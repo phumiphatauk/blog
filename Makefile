@@ -71,6 +71,10 @@ migrate_force:
 sqlc:
 	sqlc generate
 
+## test: Run tests
+test:
+	go test -v -cover -short ./...
+
 ## proto: Generate code from
 proto:
 	rm -rf pb/*.go
@@ -129,4 +133,4 @@ stop:
 ## restart: stops and starts the running application
 restart: stop run
 
-.PHONY: postgres postgresdown redis redisdown migrate migrateup migrateup1 migratedown migratedown1 sqlc proto evans build run stop restart
+.PHONY: postgres postgresdown redis redisdown migrate migrateup migrateup1 migratedown migratedown1 sqlc test proto evans build run stop restart
