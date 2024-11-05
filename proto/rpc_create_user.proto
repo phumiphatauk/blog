@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+
+option go_package = "blog_api/pb";
+
+message CreateUserRequest {
+    string username = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string password = 4;
+    string email = 5;
+    string phone = 6;
+}
+
+message CreateUserResponse {
+    User user = 1;
+}

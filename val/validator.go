@@ -7,8 +7,10 @@ import (
 )
 
 var (
-	isValidUsername = regexp.MustCompile(`^[a-z0-9_]+$`).MatchString
-	isValidFullName = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
+	isValidUsername  = regexp.MustCompile(`^[a-z0-9_]+$`).MatchString
+	isValidFirstName = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
+	isValidLastName  = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
+	isValidPhone     = regexp.MustCompile(`^[0-9]+$`).MatchString
 )
 
 func ValidateString(value string, minLength int, maxLength int) error {
@@ -29,11 +31,21 @@ func ValidateUsername(value string) error {
 	return nil
 }
 
-func ValidateFullName(value string) error {
+func ValidateFirstName(value string) error {
 	if err := ValidateString(value, 3, 100); err != nil {
 		return err
 	}
-	if !isValidFullName(value) {
+	if !isValidFirstName(value) {
+		return fmt.Errorf("must contain only letters or spaces")
+	}
+	return nil
+}
+
+func ValidateLastName(value string) error {
+	if err := ValidateString(value, 3, 100); err != nil {
+		return err
+	}
+	if !isValidLastName(value) {
 		return fmt.Errorf("must contain only letters or spaces")
 	}
 	return nil
@@ -49,6 +61,16 @@ func ValidateEmail(value string) error {
 	}
 	if _, err := mail.ParseAddress(value); err != nil {
 		return fmt.Errorf("is not a valid email address")
+	}
+	return nil
+}
+
+func ValidatePhone(value string) error {
+	if err := ValidateString(value, 10, 15); err != nil {
+		return err
+	}
+	if !isValidPhone(value) {
+		return fmt.Errorf("must contain only digits")
 	}
 	return nil
 }

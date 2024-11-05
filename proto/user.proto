@@ -8,8 +8,10 @@ option go_package = "blog_api/pb";
 
 message User {
     string username = 1;
-    string full_name = 2;
-    string email = 3;
-    google.protobuf.Timestamp password_changed_at = 4;
-    google.protobuf.Timestamp created_at = 5;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    string phone = 5;
+    google.protobuf.Timestamp password_changed_at = 6;
+    google.protobuf.Timestamp created_at = 7;
 }
