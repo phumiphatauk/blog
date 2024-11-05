@@ -21,10 +21,15 @@ type Querier interface {
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	CreateUserRole(ctx context.Context, arg CreateUserRoleParams) error
+	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
 	DeleteRole(ctx context.Context, id int64) error
 	DeleteUser(ctx context.Context, id int64) error
 	DeleteUserRoleByUserId(ctx context.Context, userID int64) error
+	// Queries to fix import errors in querier.go file
+	// Please not use this queries for other purpose
 	FixErrorImportPGType(ctx context.Context, dollar_1 pgtype.Timestamp) (interface{}, error)
+	// Queries to fix import errors in querier.go file
+	// Please not use this queries for other purpose
 	FixErrorImportTime(ctx context.Context, createdAt time.Time) (int64, error)
 	GetAllPermissionGroup(ctx context.Context) ([]PermissionGroup, error)
 	GetAllRole(ctx context.Context, arg GetAllRoleParams) ([]GetAllRoleRow, error)
@@ -44,6 +49,7 @@ type Querier interface {
 	UpdateRole(ctx context.Context, arg UpdateRoleParams) error
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 	UpdateUserPassword(ctx context.Context, arg UpdateUserPasswordParams) error
+	UpdateVerifyEmail(ctx context.Context, arg UpdateVerifyEmailParams) (VerifyEmail, error)
 	UseResetPassword(ctx context.Context, token string) error
 }
 

@@ -16,6 +16,8 @@ const fixErrorImportPGType = `-- name: FixErrorImportPGType :one
 SELECT NOW()::TIMESTAMP == $1::TIMESTAMP
 `
 
+// Queries to fix import errors in querier.go file
+// Please not use this queries for other purpose
 func (q *Queries) FixErrorImportPGType(ctx context.Context, dollar_1 pgtype.Timestamp) (interface{}, error) {
 	row := q.db.QueryRow(ctx, fixErrorImportPGType, dollar_1)
 	var column_1 interface{}
@@ -27,6 +29,8 @@ const fixErrorImportTime = `-- name: FixErrorImportTime :one
 SELECT id FROM users where created_at == $1
 `
 
+// Queries to fix import errors in querier.go file
+// Please not use this queries for other purpose
 func (q *Queries) FixErrorImportTime(ctx context.Context, createdAt time.Time) (int64, error) {
 	row := q.db.QueryRow(ctx, fixErrorImportTime, createdAt)
 	var id int64

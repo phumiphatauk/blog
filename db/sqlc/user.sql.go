@@ -51,7 +51,7 @@ INSERT INTO users (
   hashed_password
 ) VALUES (
   $1, $2, $3, $4, $5, $6, $7, $8
-) RETURNING id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted
+) RETURNING id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted, is_email_verified
 `
 
 type CreateUserParams struct {
@@ -91,6 +91,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Deleted,
+		&i.IsEmailVerified,
 	)
 	return i, err
 }
@@ -151,7 +152,7 @@ func (q *Queries) GetUser(ctx context.Context, id int64) (GetUserRow, error) {
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted FROM users
+SELECT id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted, is_email_verified FROM users
 WHERE email = $1
 AND deleted IS False
 `
@@ -173,12 +174,13 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Deleted,
+		&i.IsEmailVerified,
 	)
 	return i, err
 }
 
 const getUserByUsername = `-- name: GetUserByUsername :one
-SELECT id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted FROM users
+SELECT id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted, is_email_verified FROM users
 WHERE username = $1
 AND deleted IS False
 LIMIT 1
@@ -201,6 +203,7 @@ func (q *Queries) GetUserByUsername(ctx context.Context, username string) (User,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Deleted,
+		&i.IsEmailVerified,
 	)
 	return i, err
 }
@@ -296,7 +299,7 @@ SET
   updated_at = NOW()::TIMESTAMP
 WHERE
   id = $6 AND deleted IS False
-RETURNING id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted
+RETURNING id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted, is_email_verified
 `
 
 type UpdateUserParams struct {
@@ -332,6 +335,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Deleted,
+		&i.IsEmailVerified,
 	)
 	return i, err
 }

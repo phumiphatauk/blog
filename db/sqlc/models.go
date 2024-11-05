@@ -11,6 +11,26 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Blog struct {
+	ID        int64     `json:"id"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	Image     string    `json:"image"`
+	Url       string    `json:"url"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	Deleted   bool      `json:"deleted"`
+}
+
+type BlogTag struct {
+	ID        int64     `json:"id"`
+	BlogID    int64     `json:"blog_id"`
+	TagID     int64     `json:"tag_id"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	Deleted   bool      `json:"deleted"`
+}
+
 type Permission struct {
 	ID                int64  `json:"id"`
 	Code              string `json:"code"`
@@ -60,6 +80,14 @@ type Session struct {
 	CreatedAt    time.Time `json:"created_at"`
 }
 
+type Tag struct {
+	ID        int64     `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	Deleted   bool      `json:"deleted"`
+}
+
 type User struct {
 	ID                int64              `json:"id"`
 	Code              string             `json:"code"`
@@ -74,6 +102,7 @@ type User struct {
 	CreatedAt         time.Time          `json:"created_at"`
 	UpdatedAt         pgtype.Timestamptz `json:"updated_at"`
 	Deleted           bool               `json:"deleted"`
+	IsEmailVerified   bool               `json:"is_email_verified"`
 }
 
 type UserRole struct {
@@ -83,4 +112,14 @@ type UserRole struct {
 	CreatedAt time.Time          `json:"created_at"`
 	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
 	Deleted   bool               `json:"deleted"`
+}
+
+type VerifyEmail struct {
+	ID         int64     `json:"id"`
+	UserID     int64     `json:"user_id"`
+	Email      string    `json:"email"`
+	SecretCode string    `json:"secret_code"`
+	IsUsed     bool      `json:"is_used"`
+	CreatedAt  time.Time `json:"created_at"`
+	ExpiredAt  time.Time `json:"expired_at"`
 }
