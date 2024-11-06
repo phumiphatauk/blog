@@ -294,21 +294,21 @@ SET
   email = COALESCE($3, email),
   phone = COALESCE($4, phone),
   description = COALESCE($5, description),
-  -- hashed_password = COALESCE(sqlc.narg(hashed_password), hashed_password),
-  -- password_changed_at = COALESCE(sqlc.narg(password_changed_at), password_changed_at),
+  is_email_verified = COALESCE($6, is_email_verified),
   updated_at = NOW()::TIMESTAMP
 WHERE
-  id = $6 AND deleted IS False
+  id = $7 AND deleted IS False
 RETURNING id, code, username, first_name, last_name, email, phone, description, hashed_password, password_changed_at, created_at, updated_at, deleted, is_email_verified
 `
 
 type UpdateUserParams struct {
-	FirstName   pgtype.Text `json:"first_name"`
-	LastName    pgtype.Text `json:"last_name"`
-	Email       pgtype.Text `json:"email"`
-	Phone       pgtype.Text `json:"phone"`
-	Description pgtype.Text `json:"description"`
-	UserID      int64       `json:"user_id"`
+	FirstName       pgtype.Text `json:"first_name"`
+	LastName        pgtype.Text `json:"last_name"`
+	Email           pgtype.Text `json:"email"`
+	Phone           pgtype.Text `json:"phone"`
+	Description     pgtype.Text `json:"description"`
+	IsEmailVerified pgtype.Bool `json:"is_email_verified"`
+	UserID          int64       `json:"user_id"`
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
@@ -318,6 +318,7 @@ func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, e
 		arg.Email,
 		arg.Phone,
 		arg.Description,
+		arg.IsEmailVerified,
 		arg.UserID,
 	)
 	var i User

@@ -67,8 +67,7 @@ SET
   email = COALESCE(sqlc.narg(email), email),
   phone = COALESCE(sqlc.narg(phone), phone),
   description = COALESCE(sqlc.narg(description), description),
-  -- hashed_password = COALESCE(sqlc.narg(hashed_password), hashed_password),
-  -- password_changed_at = COALESCE(sqlc.narg(password_changed_at), password_changed_at),
+  is_email_verified = COALESCE(sqlc.narg(is_email_verified), is_email_verified),
   updated_at = NOW()::TIMESTAMP
 WHERE
   id = sqlc.arg(user_id) AND deleted IS False
