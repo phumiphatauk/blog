@@ -3,6 +3,7 @@ syntax = "proto3";
 package pb;
 
 import "google/protobuf/timestamp.proto";
+import "role.proto";
 
 option go_package = "blog_api/pb";
 
@@ -14,4 +15,5 @@ message User {
     string phone = 5;
     google.protobuf.Timestamp password_changed_at = 6;
     google.protobuf.Timestamp created_at = 7;
+    repeated Role roles = 8;
 }

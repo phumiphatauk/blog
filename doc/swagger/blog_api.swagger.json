@@ -55,6 +55,46 @@
         ]
       }
     },
+    "/v1/list_user": {
+      "get": {
+        "summary": "List user",
+        "description": "Use this API to get users",
+        "operationId": "BlogService_ListUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbListUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "BlogService"
+        ]
+      }
+    },
     "/v1/login_user": {
       "post": {
         "summary": "Use this API to login user and get access token \u0026 refresh token",
@@ -195,6 +235,22 @@
         }
       }
     },
+    "pbListUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbUser"
+          }
+        },
+        "total": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
     "pbLoginUserRequest": {
       "type": "object",
       "properties": {
@@ -234,6 +290,18 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "pbRole": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
@@ -294,6 +362,13 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbRole"
+          }
         }
       }
     },

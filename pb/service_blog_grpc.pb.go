@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	BlogService_ListUser_FullMethodName    = "/pb.BlogService/ListUser"
 	BlogService_CreateUser_FullMethodName  = "/pb.BlogService/CreateUser"
 	BlogService_UpdateUser_FullMethodName  = "/pb.BlogService/UpdateUser"
 	BlogService_LoginUser_FullMethodName   = "/pb.BlogService/LoginUser"
@@ -29,6 +30,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BlogServiceClient interface {
+	ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserResponse, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
@@ -41,6 +43,16 @@ type blogServiceClient struct {
 
 func NewBlogServiceClient(cc grpc.ClientConnInterface) BlogServiceClient {
 	return &blogServiceClient{cc}
+}
+
+func (c *blogServiceClient) ListUser(ctx context.Context, in *ListUserRequest, opts ...grpc.CallOption) (*ListUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListUserResponse)
+	err := c.cc.Invoke(ctx, BlogService_ListUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *blogServiceClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
@@ -87,6 +99,7 @@ func (c *blogServiceClient) VerifyEmail(ctx context.Context, in *VerifyEmailRequ
 // All implementations must embed UnimplementedBlogServiceServer
 // for forward compatibility.
 type BlogServiceServer interface {
+	ListUser(context.Context, *ListUserRequest) (*ListUserResponse, error)
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
@@ -101,6 +114,9 @@ type BlogServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedBlogServiceServer struct{}
 
+func (UnimplementedBlogServiceServer) ListUser(context.Context, *ListUserRequest) (*ListUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUser not implemented")
+}
 func (UnimplementedBlogServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
@@ -132,6 +148,24 @@ func RegisterBlogServiceServer(s grpc.ServiceRegistrar, srv BlogServiceServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&BlogService_ServiceDesc, srv)
+}
+
+func _BlogService_ListUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlogServiceServer).ListUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: BlogService_ListUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlogServiceServer).ListUser(ctx, req.(*ListUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _BlogService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -213,6 +247,10 @@ var BlogService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "pb.BlogService",
 	HandlerType: (*BlogServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListUser",
+			Handler:    _BlogService_ListUser_Handler,
+		},
 		{
 			MethodName: "CreateUser",
 			Handler:    _BlogService_CreateUser_Handler,

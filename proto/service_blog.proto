@@ -3,6 +3,7 @@ syntax = "proto3";
 package pb;
 
 import "google/api/annotations.proto";
+import "rpc_list_user.proto";
 import "rpc_create_user.proto";
 import "rpc_update_user.proto";
 import "rpc_login_user.proto";
@@ -24,6 +25,15 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service BlogService {
+    rpc ListUser (ListUserRequest) returns (ListUserResponse) {
+        option (google.api.http) = {
+            get: "/v1/list_user"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to get users";
+            summary: "List user";
+        };
+    }
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
             post: "/v1/create_user"
