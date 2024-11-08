@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v4.24.3
-// source: rpc_list_user.proto
+// source: rpc_user_list.proto
 
 package pb
 
@@ -32,7 +32,7 @@ type ListUserRequest struct {
 func (x *ListUserRequest) Reset() {
 	*x = ListUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_list_user_proto_msgTypes[0]
+		mi := &file_rpc_user_list_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -45,7 +45,7 @@ func (x *ListUserRequest) String() string {
 func (*ListUserRequest) ProtoMessage() {}
 
 func (x *ListUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_list_user_proto_msgTypes[0]
+	mi := &file_rpc_user_list_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -58,7 +58,7 @@ func (x *ListUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListUserRequest.ProtoReflect.Descriptor instead.
 func (*ListUserRequest) Descriptor() ([]byte, []int) {
-	return file_rpc_list_user_proto_rawDescGZIP(), []int{0}
+	return file_rpc_user_list_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ListUserRequest) GetPageId() int64 {
@@ -87,7 +87,7 @@ type ListUserResponse struct {
 func (x *ListUserResponse) Reset() {
 	*x = ListUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_list_user_proto_msgTypes[1]
+		mi := &file_rpc_user_list_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -100,7 +100,7 @@ func (x *ListUserResponse) String() string {
 func (*ListUserResponse) ProtoMessage() {}
 
 func (x *ListUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_list_user_proto_msgTypes[1]
+	mi := &file_rpc_user_list_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -113,7 +113,7 @@ func (x *ListUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListUserResponse.ProtoReflect.Descriptor instead.
 func (*ListUserResponse) Descriptor() ([]byte, []int) {
-	return file_rpc_list_user_proto_rawDescGZIP(), []int{1}
+	return file_rpc_user_list_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ListUserResponse) GetUser() []*User {
@@ -130,10 +130,10 @@ func (x *ListUserResponse) GetTotal() int64 {
 	return 0
 }
 
-var File_rpc_list_user_proto protoreflect.FileDescriptor
+var File_rpc_user_list_proto protoreflect.FileDescriptor
 
-var file_rpc_list_user_proto_rawDesc = []byte{
-	0x0a, 0x13, 0x72, 0x70, 0x63, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x2e,
+var file_rpc_user_list_proto_rawDesc = []byte{
+	0x0a, 0x13, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x6c, 0x69, 0x73, 0x74, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x02, 0x70, 0x62, 0x1a, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x47, 0x0a, 0x0f, 0x4c, 0x69, 0x73, 0x74, 0x55, 0x73, 0x65,
 	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x70, 0x61, 0x67, 0x65,
@@ -149,24 +149,24 @@ var file_rpc_list_user_proto_rawDesc = []byte{
 }
 
 var (
-	file_rpc_list_user_proto_rawDescOnce sync.Once
-	file_rpc_list_user_proto_rawDescData = file_rpc_list_user_proto_rawDesc
+	file_rpc_user_list_proto_rawDescOnce sync.Once
+	file_rpc_user_list_proto_rawDescData = file_rpc_user_list_proto_rawDesc
 )
 
-func file_rpc_list_user_proto_rawDescGZIP() []byte {
-	file_rpc_list_user_proto_rawDescOnce.Do(func() {
-		file_rpc_list_user_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_list_user_proto_rawDescData)
+func file_rpc_user_list_proto_rawDescGZIP() []byte {
+	file_rpc_user_list_proto_rawDescOnce.Do(func() {
+		file_rpc_user_list_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_user_list_proto_rawDescData)
 	})
-	return file_rpc_list_user_proto_rawDescData
+	return file_rpc_user_list_proto_rawDescData
 }
 
-var file_rpc_list_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_rpc_list_user_proto_goTypes = []interface{}{
+var file_rpc_user_list_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_rpc_user_list_proto_goTypes = []interface{}{
 	(*ListUserRequest)(nil),  // 0: pb.ListUserRequest
 	(*ListUserResponse)(nil), // 1: pb.ListUserResponse
 	(*User)(nil),             // 2: pb.User
 }
-var file_rpc_list_user_proto_depIdxs = []int32{
+var file_rpc_user_list_proto_depIdxs = []int32{
 	2, // 0: pb.ListUserResponse.user:type_name -> pb.User
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
@@ -175,14 +175,14 @@ var file_rpc_list_user_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_rpc_list_user_proto_init() }
-func file_rpc_list_user_proto_init() {
-	if File_rpc_list_user_proto != nil {
+func init() { file_rpc_user_list_proto_init() }
+func file_rpc_user_list_proto_init() {
+	if File_rpc_user_list_proto != nil {
 		return
 	}
 	file_user_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_rpc_list_user_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_user_list_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListUserRequest); i {
 			case 0:
 				return &v.state
@@ -194,7 +194,7 @@ func file_rpc_list_user_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_list_user_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_user_list_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListUserResponse); i {
 			case 0:
 				return &v.state
@@ -211,18 +211,18 @@ func file_rpc_list_user_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_rpc_list_user_proto_rawDesc,
+			RawDescriptor: file_rpc_user_list_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_rpc_list_user_proto_goTypes,
-		DependencyIndexes: file_rpc_list_user_proto_depIdxs,
-		MessageInfos:      file_rpc_list_user_proto_msgTypes,
+		GoTypes:           file_rpc_user_list_proto_goTypes,
+		DependencyIndexes: file_rpc_user_list_proto_depIdxs,
+		MessageInfos:      file_rpc_user_list_proto_msgTypes,
 	}.Build()
-	File_rpc_list_user_proto = out.File
-	file_rpc_list_user_proto_rawDesc = nil
-	file_rpc_list_user_proto_goTypes = nil
-	file_rpc_list_user_proto_depIdxs = nil
+	File_rpc_user_list_proto = out.File
+	file_rpc_user_list_proto_rawDesc = nil
+	file_rpc_user_list_proto_goTypes = nil
+	file_rpc_user_list_proto_depIdxs = nil
 }

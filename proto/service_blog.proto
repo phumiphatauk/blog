@@ -3,11 +3,11 @@ syntax = "proto3";
 package pb;
 
 import "google/api/annotations.proto";
-import "rpc_list_user.proto";
-import "rpc_create_user.proto";
-import "rpc_update_user.proto";
-import "rpc_login_user.proto";
-import "rpc_verify_email.proto";
+import "rpc_auth_login.proto";
+import "rpc_auth_verify_email.proto";
+import "rpc_user_list.proto";
+import "rpc_user_create.proto";
+import "rpc_user_update.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "blog_api/pb";
@@ -23,40 +23,10 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
         };
     };
 };
-
 service BlogService {
-    rpc ListUser (ListUserRequest) returns (ListUserResponse) {
-        option (google.api.http) = {
-            get: "/v1/list_user"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Use this API to get users";
-            summary: "List user";
-        };
-    }
-    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
-        option (google.api.http) = {
-            post: "/v1/create_user"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Use this API to create a new user";
-            summary: "Create new user";
-        };
-    }
-    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {
-        option (google.api.http) = {
-            put: "/v1/update_user"
-            body: "*"
-        };
-        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-            description: "Use this API to update user";
-            summary: "Update user";
-        };
-    }
     rpc LoginUser(LoginUserRequest) returns (LoginUserResponse) {
         option (google.api.http) = {
-            post: "/v1/login_user"
+            post: "/v1/auth/login"
             body: "*"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -64,13 +34,42 @@ service BlogService {
             description: "Login User"
         };
     }
+    rpc RegisterUser (CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/v1/auth/register"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to create a new user";
+            summary: "Create new user";
+        };
+    }
     rpc VerifyEmail (VerifyEmailRequest) returns (VerifyEmailResponse) {
         option (google.api.http) = {
-            get: "/v1/verify_email"
+            get: "/v1/auth/verify_email"
         };
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             description: "Use this API to verify user's email address";
             summary: "Verify email";
+        };
+    }
+    rpc ListUser (ListUserRequest) returns (ListUserResponse) {
+        option (google.api.http) = {
+            get: "/v1/user"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to get users";
+            summary: "List user";
+        };
+    }
+    rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse) {
+        option (google.api.http) = {
+            put: "/v1/user"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to update user";
+            summary: "Update user";
         };
     }
 }

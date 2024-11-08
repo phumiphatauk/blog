@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v4.24.3
-// source: rpc_update_user.proto
+// source: rpc_user_update.proto
 
 package pb
 
@@ -36,7 +36,7 @@ type UpdateUserRequest struct {
 func (x *UpdateUserRequest) Reset() {
 	*x = UpdateUserRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_update_user_proto_msgTypes[0]
+		mi := &file_rpc_user_update_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -49,7 +49,7 @@ func (x *UpdateUserRequest) String() string {
 func (*UpdateUserRequest) ProtoMessage() {}
 
 func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_update_user_proto_msgTypes[0]
+	mi := &file_rpc_user_update_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -62,7 +62,7 @@ func (x *UpdateUserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserRequest.ProtoReflect.Descriptor instead.
 func (*UpdateUserRequest) Descriptor() ([]byte, []int) {
-	return file_rpc_update_user_proto_rawDescGZIP(), []int{0}
+	return file_rpc_user_update_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *UpdateUserRequest) GetFirstName() string {
@@ -118,7 +118,7 @@ type UpdateUserResponse struct {
 func (x *UpdateUserResponse) Reset() {
 	*x = UpdateUserResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_update_user_proto_msgTypes[1]
+		mi := &file_rpc_user_update_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -131,7 +131,7 @@ func (x *UpdateUserResponse) String() string {
 func (*UpdateUserResponse) ProtoMessage() {}
 
 func (x *UpdateUserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_update_user_proto_msgTypes[1]
+	mi := &file_rpc_user_update_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -144,7 +144,7 @@ func (x *UpdateUserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateUserResponse.ProtoReflect.Descriptor instead.
 func (*UpdateUserResponse) Descriptor() ([]byte, []int) {
-	return file_rpc_update_user_proto_rawDescGZIP(), []int{1}
+	return file_rpc_user_update_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UpdateUserResponse) GetUser() *User {
@@ -154,11 +154,11 @@ func (x *UpdateUserResponse) GetUser() *User {
 	return nil
 }
 
-var File_rpc_update_user_proto protoreflect.FileDescriptor
+var File_rpc_user_update_proto protoreflect.FileDescriptor
 
-var file_rpc_update_user_proto_rawDesc = []byte{
-	0x0a, 0x15, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x75, 0x73, 0x65,
-	0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x02, 0x70, 0x62, 0x1a, 0x0a, 0x75, 0x73, 0x65,
+var file_rpc_user_update_proto_rawDesc = []byte{
+	0x0a, 0x15, 0x72, 0x70, 0x63, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x02, 0x70, 0x62, 0x1a, 0x0a, 0x75, 0x73, 0x65,
 	0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x90, 0x02, 0x0a, 0x11, 0x55, 0x70, 0x64, 0x61,
 	0x74, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x22, 0x0a,
 	0x0a, 0x66, 0x69, 0x72, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
@@ -185,24 +185,24 @@ var file_rpc_update_user_proto_rawDesc = []byte{
 }
 
 var (
-	file_rpc_update_user_proto_rawDescOnce sync.Once
-	file_rpc_update_user_proto_rawDescData = file_rpc_update_user_proto_rawDesc
+	file_rpc_user_update_proto_rawDescOnce sync.Once
+	file_rpc_user_update_proto_rawDescData = file_rpc_user_update_proto_rawDesc
 )
 
-func file_rpc_update_user_proto_rawDescGZIP() []byte {
-	file_rpc_update_user_proto_rawDescOnce.Do(func() {
-		file_rpc_update_user_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_update_user_proto_rawDescData)
+func file_rpc_user_update_proto_rawDescGZIP() []byte {
+	file_rpc_user_update_proto_rawDescOnce.Do(func() {
+		file_rpc_user_update_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_user_update_proto_rawDescData)
 	})
-	return file_rpc_update_user_proto_rawDescData
+	return file_rpc_user_update_proto_rawDescData
 }
 
-var file_rpc_update_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_rpc_update_user_proto_goTypes = []interface{}{
+var file_rpc_user_update_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_rpc_user_update_proto_goTypes = []interface{}{
 	(*UpdateUserRequest)(nil),  // 0: pb.UpdateUserRequest
 	(*UpdateUserResponse)(nil), // 1: pb.UpdateUserResponse
 	(*User)(nil),               // 2: pb.User
 }
-var file_rpc_update_user_proto_depIdxs = []int32{
+var file_rpc_user_update_proto_depIdxs = []int32{
 	2, // 0: pb.UpdateUserResponse.user:type_name -> pb.User
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
@@ -211,14 +211,14 @@ var file_rpc_update_user_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_rpc_update_user_proto_init() }
-func file_rpc_update_user_proto_init() {
-	if File_rpc_update_user_proto != nil {
+func init() { file_rpc_user_update_proto_init() }
+func file_rpc_user_update_proto_init() {
+	if File_rpc_user_update_proto != nil {
 		return
 	}
 	file_user_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_rpc_update_user_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_user_update_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateUserRequest); i {
 			case 0:
 				return &v.state
@@ -230,7 +230,7 @@ func file_rpc_update_user_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_update_user_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_user_update_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateUserResponse); i {
 			case 0:
 				return &v.state
@@ -243,23 +243,23 @@ func file_rpc_update_user_proto_init() {
 			}
 		}
 	}
-	file_rpc_update_user_proto_msgTypes[0].OneofWrappers = []interface{}{}
+	file_rpc_user_update_proto_msgTypes[0].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_rpc_update_user_proto_rawDesc,
+			RawDescriptor: file_rpc_user_update_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_rpc_update_user_proto_goTypes,
-		DependencyIndexes: file_rpc_update_user_proto_depIdxs,
-		MessageInfos:      file_rpc_update_user_proto_msgTypes,
+		GoTypes:           file_rpc_user_update_proto_goTypes,
+		DependencyIndexes: file_rpc_user_update_proto_depIdxs,
+		MessageInfos:      file_rpc_user_update_proto_msgTypes,
 	}.Build()
-	File_rpc_update_user_proto = out.File
-	file_rpc_update_user_proto_rawDesc = nil
-	file_rpc_update_user_proto_goTypes = nil
-	file_rpc_update_user_proto_depIdxs = nil
+	File_rpc_user_update_proto = out.File
+	file_rpc_user_update_proto_rawDesc = nil
+	file_rpc_user_update_proto_goTypes = nil
+	file_rpc_user_update_proto_depIdxs = nil
 }

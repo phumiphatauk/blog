@@ -21,11 +21,45 @@
     "application/json"
   ],
   "paths": {
-    "/v1/create_user": {
+    "/v1/auth/login": {
+      "post": {
+        "summary": "Use this API to login user and get access token \u0026 refresh token",
+        "description": "Login User",
+        "operationId": "BlogService_LoginUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbLoginUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbLoginUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlogService"
+        ]
+      }
+    },
+    "/v1/auth/register": {
       "post": {
         "summary": "Create new user",
         "description": "Use this API to create a new user",
-        "operationId": "BlogService_CreateUser",
+        "operationId": "BlogService_RegisterUser",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -55,7 +89,46 @@
         ]
       }
     },
-    "/v1/list_user": {
+    "/v1/auth/verify_email": {
+      "get": {
+        "summary": "Verify email",
+        "description": "Use this API to verify user's email address",
+        "operationId": "BlogService_VerifyEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbVerifyEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "emailId",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "secretCode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BlogService"
+        ]
+      }
+    },
+    "/v1/user": {
       "get": {
         "summary": "List user",
         "description": "Use this API to get users",
@@ -93,43 +166,7 @@
         "tags": [
           "BlogService"
         ]
-      }
-    },
-    "/v1/login_user": {
-      "post": {
-        "summary": "Use this API to login user and get access token \u0026 refresh token",
-        "description": "Login User",
-        "operationId": "BlogService_LoginUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbLoginUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/pbLoginUserRequest"
-            }
-          }
-        ],
-        "tags": [
-          "BlogService"
-        ]
-      }
-    },
-    "/v1/update_user": {
+      },
       "put": {
         "summary": "Update user",
         "description": "Use this API to update user",
@@ -156,45 +193,6 @@
             "schema": {
               "$ref": "#/definitions/pbUpdateUserRequest"
             }
-          }
-        ],
-        "tags": [
-          "BlogService"
-        ]
-      }
-    },
-    "/v1/verify_email": {
-      "get": {
-        "summary": "Verify email",
-        "description": "Use this API to verify user's email address",
-        "operationId": "BlogService_VerifyEmail",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbVerifyEmailResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "emailId",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "secretCode",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
